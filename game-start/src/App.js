@@ -1,5 +1,4 @@
 import "./App.css";
-import React from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -18,8 +17,8 @@ function App() {
       <Router>
         <div className="content">
           <Routes>
-            <Route path="/purchase" element={<Purchase />} />
-            <Route path="/" element={<Navigate replace to= "/purchase" />}/>
+            <Route path="/purchase" element={<Purchase/>} />
+            <Route path="/" element={<Navigate replace to= "/purchase"/>}/>
             <Route path="/purchase/paymentEntry" element={<PaymentEntry/>} />
             <Route path="/purchase/shippingEntry" element={<ShippingEntry/>} />
             <Route path="/purchase/viewOrder" element={<ViewOrder/>} />
