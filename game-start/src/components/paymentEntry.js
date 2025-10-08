@@ -1,7 +1,10 @@
 import React from "react";
+import { useLocation } from "react-router-dom"
 
 const PaymentEntry = () => {
-  let title = "Payment Entry Page";
+  let title = "Game-Start Payment Entry Page";
+
+  const location = useLocation(); 
 
   return (
     <div>

@@ -6,7 +6,7 @@ import { StatePayload } from "../StatePayload";
 const Purchase = () => {
   const [order, setOrder] = useState(StatePayload);
   const navigate = useNavigate(); //This is our hook for React
-  let title = "Purchase Page";
+  let title = "Game-Start Purchase Page";
 
   //This action handler is used to route to our next page
   const handleSubmit = (e) => {
@@ -18,7 +18,7 @@ const Purchase = () => {
 
   // Example product names, replace with order.products if available
   // This is just hard coded right now, we'd eventually want it to populate with the data from the backend
-  const products = ["Product 1", "Product 2"];
+  const products = ["Legend of Zelda: Breath of The Wild", "Just Dance 88", "Madden 2054", "NBA 2K54", "Flappy Bird"];
 
   return (
     <div className="purchase-container">
@@ -26,7 +26,7 @@ const Purchase = () => {
       <form onSubmit={handleSubmit} className="purchase-form">
         {products.map((product, idx) => (
           <div className="form-group" key={product}>
-            <label htmlFor={`product-${idx}`}>{product}</label>
+            <label htmlFor={`product-${idx}`}>   {product}</label>
             <input
               id={`product-${idx}`}
               type="number"

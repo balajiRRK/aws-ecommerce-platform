@@ -1,7 +1,7 @@
 import React from "react";
 
 const Confirmation = () => {
-  let title = "Confirmation Page";
+  let title = "Game-Start Confirmation Page";
 
   return (
     <div>

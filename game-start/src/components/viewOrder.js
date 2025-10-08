@@ -1,7 +1,7 @@
 import React from "react";
 
 const ViewOrder = () => {
-  let title = "View Order Page";
+  let title = "Game-Start View Order Page";
 
   return (
     <div>

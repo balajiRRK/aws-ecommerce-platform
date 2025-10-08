@@ -1,7 +1,7 @@
 import React from "react";
 
 const ShippingEntry = () => {
-  let title = "Shipping Entry Page";
+  let title = "Game-Start Shipping Entry Page";
 
   return (
     <div>
