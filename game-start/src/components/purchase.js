@@ -26,13 +26,13 @@ const Purchase = () => {
     { id: 2, name: "Just Dance 88", price: 49.99 },
     { id: 3, name: "Madden 2054", price: 69.99 },
     { id: 4, name: "NBA 2K54", price: 59.99 },
-    { id: 5, name: "Flappy Bird", price: 9.99 }
+    { id: 5, name: "Flappy Bird", price: 9.99 },
   ];
 
   const handleQuantityChange = (productId, quantity) => {
-    setQuantities(prev => ({
+    setQuantities((prev) => ({
       ...prev,
-      [productId]: quantity
+      [productId]: quantity,
     }));
   };
 
@@ -41,9 +41,9 @@ const Purchase = () => {
     if (quantity > 0) {
       addToCart(product, quantity);
       // Reset quantity after adding to cart
-      setQuantities(prev => ({
+      setQuantities((prev) => ({
         ...prev,
-        [product.id]: ""
+        [product.id]: "",
       }));
     }
   };
@@ -64,7 +64,12 @@ const Purchase = () => {
                 placeholder="Qty"
                 value={quantities[product.id] || ""}
                 data-testid={`product-input-${product.id}`}
-                onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value) || "")}
+                onChange={(e) =>
+                  handleQuantityChange(
+                    product.id,
+                    parseInt(e.target.value) || ""
+                  )
+                }
                 className="quantity-input"
               />
               <button
@@ -79,7 +84,7 @@ const Purchase = () => {
           </div>
         ))}
       </div>
-      
+
       <form onSubmit={handleSubmit} className="checkout-form">
         <button className="button checkout-button" type="submit">
           Proceed to Checkout

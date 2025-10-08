@@ -1,4 +1,3 @@
-import "./App.css";
 import {
   BrowserRouter as Router,
   Route,
@@ -23,12 +22,15 @@ function App() {
               <ShoppingCart />
             </div>
             <Routes>
-              <Route path="/purchase" element={<Purchase/>} />
-              <Route path="/" element={<Navigate replace to= "/purchase"/>}/>
-              <Route path="/purchase/paymentEntry" element={<PaymentEntry/>} />
-              <Route path="/purchase/shippingEntry" element={<ShippingEntry/>} />
-              <Route path="/purchase/viewOrder" element={<ViewOrder/>} />
-              <Route path="/purchase/confirmation" element={<Confirmation/>} />
+              <Route path="/purchase" element={<Purchase />} />
+              <Route path="/" element={<Navigate replace to="/purchase" />} />
+              <Route path="/purchase/paymentEntry" element={<PaymentEntry />} />
+              <Route
+                path="/purchase/shippingEntry"
+                element={<ShippingEntry />}
+              />
+              <Route path="/purchase/viewOrder" element={<ViewOrder />} />
+              <Route path="/purchase/confirmation" element={<Confirmation />} />
             </Routes>
           </div>
         </Router>
