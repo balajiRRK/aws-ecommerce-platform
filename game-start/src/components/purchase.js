@@ -1,37 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { StatePayload } from "../StatePayload";
 
-const Purchase = ({ order, setOrder }) => {
+const Purchase = () => {
+  const [order, setOrder] = useState(StatePayload);
   const navigate = useNavigate();
-  let title = "Game-Start Purchase Page";
+  const title = "Game-Start Purchase Page";
+
+  const products = [
+    { name: "Legend of Zelda: Breath of The Wild", price: 60 },
+    { name: "Just Dance 88", price: 40 },
+    { name: "Madden 2054", price: 55 },
+    { name: "NBA 2K54", price: 50 },
+    { name: "Flappy Bird", price: 10 },
+  ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/purchase/paymentEntry");
+    const newOrder = { ...order };
+    navigate("/purchase/paymentEntry", { state: { order: newOrder } });
   };
-
-  const products = [
-    "Legend of Zelda: Breath of The Wild",
-    "Just Dance 88",
-    "Madden 2054",
-    "NBA 2K54",
-    "Flappy Bird",
-  ];
 
   return (
     <div className="purchase-container">
       <h2>{title}</h2>
       <form onSubmit={handleSubmit} className="purchase-form">
         {products.map((product, idx) => (
-          <div className="form-group" key={product}>
-            <label htmlFor={`product-${idx}`}>{product}</label>
+          <div className="form-group" key={product.name}>
+            <label htmlFor={`product-${idx}`}>{product.name}</label>
             <input
               id={`product-${idx}`}
               type="number"
               required
               min="0"
               value={order.buyQuantity[idx] || ""}
-              data-testid={`product-input-${idx}`}
               onChange={(e) => {
                 const newOrder = { ...order };
                 newOrder.buyQuantity[idx] = Number(e.target.value);
@@ -40,9 +42,7 @@ const Purchase = ({ order, setOrder }) => {
             />
           </div>
         ))}
-        <button className="button" type="submit">
-          Pay
-        </button>
+        <button type="submit">Next: Payment Info</button>
       </form>
     </div>
   );
