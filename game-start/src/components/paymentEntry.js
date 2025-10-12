@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../contexts/CartContext";
 import { StatePayload } from "../StatePayload";
 
 const PaymentEntry = () => {
   let title = "Game-Start Payment Entry Page";
+  const navigate = useNavigate();
   const { cartState, getTotalPrice } = useCart();
 
   // Use StatePayload's credit_card_data as initial form state
@@ -28,8 +30,9 @@ const PaymentEntry = () => {
     console.log("Submitting payment with data:", form);
 
     setTimeout(() => {
-      alert("Payment successful!");
       setProcessing(false);
+      // Navigate to shipping entry page after successful payment
+      navigate("/purchase/shippingEntry", { state: { paymentData: form } });
     }, 1500);
   };
 

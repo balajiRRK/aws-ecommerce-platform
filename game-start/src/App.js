@@ -3,6 +3,7 @@ import {
   Route,
   Routes,
   Navigate,
+  Link,
 } from "react-router-dom";
 import Purchase from "./components/purchase";
 import PaymentEntry from "./components/paymentEntry";
@@ -19,6 +20,9 @@ function App() {
         <Router>
           <div className="content">
             <div className="app-header">
+              <Link to="/purchase" style={{ textDecoration: 'none' }}>
+                <button className="back-to-store-btn">🏪 Back to Store</button>
+              </Link>
               <ShoppingCart />
             </div>
             <Routes>
