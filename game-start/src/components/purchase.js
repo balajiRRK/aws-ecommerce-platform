@@ -1,24 +1,22 @@
 import React from "react";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { StatePayload } from "../StatePayload";
 
-const Purchase = () => {
-  const [order, setOrder] = useState(StatePayload);
-  const navigate = useNavigate(); //This is our hook for React
+const Purchase = ({ order, setOrder }) => {
+  const navigate = useNavigate();
   let title = "Game-Start Purchase Page";
 
-  //This action handler is used to route to our next page
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/purchase/paymentEntry", { order: order, setOrder: setOrder });
+    navigate("/purchase/paymentEntry");
   };
 
-  console.log("order: ", order);
-
-  // Example product names, replace with order.products if available
-  // This is just hard coded right now, we'd eventually want it to populate with the data from the backend
-  const products = ["Legend of Zelda: Breath of The Wild", "Just Dance 88", "Madden 2054", "NBA 2K54", "Flappy Bird"];
+  const products = [
+    "Legend of Zelda: Breath of The Wild",
+    "Just Dance 88",
+    "Madden 2054",
+    "NBA 2K54",
+    "Flappy Bird",
+  ];
 
   return (
     <div className="purchase-container">
@@ -26,7 +24,7 @@ const Purchase = () => {
       <form onSubmit={handleSubmit} className="purchase-form">
         {products.map((product, idx) => (
           <div className="form-group" key={product}>
-            <label htmlFor={`product-${idx}`}>   {product}</label>
+            <label htmlFor={`product-${idx}`}>{product}</label>
             <input
               id={`product-${idx}`}
               type="number"
@@ -36,13 +34,15 @@ const Purchase = () => {
               data-testid={`product-input-${idx}`}
               onChange={(e) => {
                 const newOrder = { ...order };
-                newOrder.buyQuantity[idx] = e.target.value;
+                newOrder.buyQuantity[idx] = Number(e.target.value);
                 setOrder(newOrder);
               }}
             />
           </div>
         ))}
-        <button className="button" type="submit">Pay</button>
+        <button className="button" type="submit">
+          Pay
+        </button>
       </form>
     </div>
   );
