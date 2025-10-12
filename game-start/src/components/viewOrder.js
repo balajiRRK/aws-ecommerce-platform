@@ -1,14 +1,15 @@
 import React from "react";
 
-const ViewOrder = () => {
-  let title = "Game-Start View Order Page";
-
+export default function ViewOrder() {
   return (
-    <div>
-      <h1>{title}</h1>
-      <p>Order details will go here.</p>
+    <div className="view-order">
+      <h2>Order Summary</h2>
+      <p>Product: Example Item</p>
+      <p>Quantity: 1</p>
+      <p>Total: $49.99</p>
+      <button onClick={() => window.location.href="/purchase/confirmation"}>
+        Confirm Order
+      </button>
     </div>
   );
-};
-
-export default ViewOrder;
+}
