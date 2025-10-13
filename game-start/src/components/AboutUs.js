@@ -80,15 +80,23 @@ const AboutUs = () => {
           <div className="team-grid">
             <div className="team-member">
               <div className="member-photo">
-                    Place photos here!
-                <img src="https://via.placeholder.com/200x200/4a90e2/ffffff?text=CEO" alt="CEO" />
+                <img src="https://media.licdn.com/dms/image/v2/D5603AQHuw98fIzdQQQ/profile-displayphoto-scale_400_400/B56ZiZd782HMAg-/0/1754921419854?e=1762992000&v=beta&t=TKBPr915Z9kvRPOHepB8cZpaNzb66kjf29aLK-qzEok" alt="CEO" />
               </div>
               <div className="member-info">
-                <h3>Name</h3>
-                <h4>Chief Executive Officer</h4>
-                <p><strong>Education:</strong> MBA from Stanford University, BS Computer Science from MIT</p>
-                <p><strong>Experience:</strong> 15+ years in tech leadership, former VP at Electronic Arts, led 3 successful gaming startups</p>
-                <p><strong>Passion:</strong> Revolutionizing the gaming industry through innovative digital distribution and creating inclusive gaming communities worldwide</p>
+                <h3>Casey Bartman</h3>
+                <h4>Chief Technical Officer</h4>
+                <p><strong>Education:</strong> B.S. Computer & Information Science with Honors, The Ohio State University (May 2026)</p>
+                <p><strong>Experience:</strong><br />
+                  <ul className="text-start">
+                    <li>Software Development Engineer in Test Intern, CHAMP Titles (2025–Present): Lead a team of Senior Engineers through technical debt remediation, refactored legacy test architecture, improved CI/CD reliability.</li>
+                    <li>Backend Software Developer Intern, CHAMP Titles (2024): Resolved critical production bugs, delivered backend features in Java Spring Boot/Docker.</li>
+                    <li>Radiology Clinical Research Intern, University Hospitals (2023): Built Python GUI for CT scan analysis and visualization.</li>
+                    <li>Biomedical Engineering Research Assistant, Case Western Reserve (2023): Segmented and cleaned cardiac CT images for deep learning.</li>
+                    <li>Project Lead, Code 4 Community Club @ OSU: Led educational web app game for K-12, delivered workshops, mentored new devs.</li>
+                  </ul>
+                </p>
+                <p><strong>Skills:</strong> JavaScript, Java, Ruby, C, SQL, HTML, CSS, Python, C#; Node.js, Cypress, Playwright, Spring Boot, Docker, Git, REST APIs, AWS, CI/CD, Agile.</p>
+                <p><strong>Passions:</strong> Cooking, reading novels, playing the guitar, lifting, rooting for Michigan Football</p>
               </div>
             </div>
 
@@ -98,7 +106,7 @@ const AboutUs = () => {
               </div>
               <div className="member-info">
                 <h3>Name</h3>
-                <h4>Chief Technology Officer</h4>
+                <h4>Chief Executive Officer</h4>
                 <p><strong>Education:</strong> MS Computer Science from Carnegie Mellon, BS Software Engineering from UC Berkeley</p>
                 <p><strong>Experience:</strong> 12+ years building scalable platforms, former Senior Engineer at Steam, cloud architecture expert</p>
                 <p><strong>Passion:</strong> Building lightning-fast, reliable gaming platforms that can handle millions of users while maintaining exceptional performance</p>
