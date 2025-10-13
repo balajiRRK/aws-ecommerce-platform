@@ -27,14 +27,12 @@ const PaymentEntry = () => {
       !paymentInfo.expiry ||
       !paymentInfo.cvv
     ) {
-      alert("Please fill in all fields");
+      alert("Please fill in all payment fields");
       return;
     }
 
     localStorage.setItem("paymentInfo", JSON.stringify(paymentInfo));
-
-    // ✅ Next: review order
-    navigate("/purchase/viewOrder", { state: { order: prevOrder } });
+    navigate("/purchase/shippingEntry", { state: { order: prevOrder } });
   };
 
   return (
@@ -89,7 +87,7 @@ const PaymentEntry = () => {
           />
         </div>
 
-        <button type="submit">Next: Review Order</button>
+        <button type="submit">Continue to Shipping</button>
       </form>
     </div>
   );

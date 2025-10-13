@@ -9,7 +9,8 @@ const ShippingEntry = () => {
 
   const [shippingInfo, setShippingInfo] = useState({
     fullName: "",
-    address: "",
+    address1: "",
+    address2: "",
     city: "",
     state: "",
     zip: "",
@@ -24,19 +25,17 @@ const ShippingEntry = () => {
 
     if (
       !shippingInfo.fullName ||
-      !shippingInfo.address ||
+      !shippingInfo.address1 ||
       !shippingInfo.city ||
       !shippingInfo.state ||
       !shippingInfo.zip
     ) {
-      alert("Please fill in all fields");
+      alert("Please fill in all required fields");
       return;
     }
 
     localStorage.setItem("shippingInfo", JSON.stringify(shippingInfo));
-
-    // ✅ After shipping, go to payment
-    navigate("/purchase/paymentEntry", { state: { order: prevOrder } });
+    navigate("/purchase/viewOrder", { state: { order: prevOrder } });
   };
 
   return (
@@ -56,14 +55,25 @@ const ShippingEntry = () => {
         </div>
 
         <div className="form-group">
-          <label>Address</label>
+          <label>Address Line 1</label>
           <input
             type="text"
-            name="address"
-            value={shippingInfo.address}
+            name="address1"
+            value={shippingInfo.address1}
             onChange={handleChange}
             placeholder="123 Main St"
             required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Address Line 2 (optional)</label>
+          <input
+            type="text"
+            name="address2"
+            value={shippingInfo.address2}
+            onChange={handleChange}
+            placeholder="Apt, Suite, etc."
           />
         </div>
 
@@ -74,7 +84,6 @@ const ShippingEntry = () => {
             name="city"
             value={shippingInfo.city}
             onChange={handleChange}
-            placeholder="New York"
             required
           />
         </div>
@@ -86,7 +95,6 @@ const ShippingEntry = () => {
             name="state"
             value={shippingInfo.state}
             onChange={handleChange}
-            placeholder="NY"
             required
           />
         </div>
@@ -98,12 +106,11 @@ const ShippingEntry = () => {
             name="zip"
             value={shippingInfo.zip}
             onChange={handleChange}
-            placeholder="10001"
             required
           />
         </div>
 
-        <button type="submit">Next: Payment Info</button>
+        <button type="submit">Next: Review Order</button>
       </form>
     </div>
   );

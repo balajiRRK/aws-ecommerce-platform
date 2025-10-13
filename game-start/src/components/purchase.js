@@ -39,8 +39,8 @@ const Purchase = () => {
     setOrder(updatedOrder);
     localStorage.setItem("orderData", JSON.stringify(updatedOrder));
 
-    // ✅ Go to shipping first
-    navigate("/purchase/shippingEntry", { state: { order: updatedOrder } });
+    // ✅ Go to Payment page next
+    navigate("/purchase/paymentEntry", { state: { order: updatedOrder } });
   };
 
   const handleChange = (index, value) => {
@@ -67,9 +67,7 @@ const Purchase = () => {
             />
           </div>
         ))}
-        <button className="button" type="submit">
-          Next: Shipping Info
-        </button>
+        <button type="submit">Next: Payment Info</button>
       </form>
     </div>
   );
