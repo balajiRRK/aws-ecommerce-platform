@@ -11,7 +11,7 @@ import Purchase from "./components/purchase";
 import PaymentEntry from "./components/paymentEntry";
 import ShippingEntry from "./components/shippingEntry";
 import ViewOrder from "./components/viewOrder";
-import ViewConfirmation from "./components/ViewConfirmation"; // ✅ renamed import
+import ViewConfirmation from "./components/ViewConfirmation";
 import { CartProvider } from "./contexts/CartContext";
 import ShoppingCart from "./components/ShoppingCart";
 

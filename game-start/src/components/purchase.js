@@ -54,7 +54,7 @@ const Purchase = () => {
       console.warn("Cart context unavailable:", err);
     }
 
-    // ✅ Go to Payment page next
+    // Go to Payment page next
     navigate("/purchase/paymentEntry", { state: { order: updatedOrder } });
   };
 
