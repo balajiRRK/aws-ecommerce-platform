@@ -1,59 +1,38 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useCart } from "../contexts/CartContext";
 
 function ViewOrder() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { cartState, getTotalPrice, getTotalItems } = useCart();
 
-  const shippingData = location.state?.shippingData;
+  const order =
+    location.state?.order || JSON.parse(localStorage.getItem("orderData")) || {};
 
-  if (!shippingData) {
-    return (
-      <div>
-        <h1>Game-Start View Order Page</h1>
-        <p>No shipping information found.</p>
-        <button onClick={() => navigate("/purchase/shippingEntry")}>
-          Go to Shipping Entry
-        </button>
-      </div>
-    );
-  }
+  const items = order.items || [];
+  const total = order.total || 0;
 
-  const handleConfirmOrder = () => {
-    navigate("/purchase/confirmation", { state: { shippingData } });
+  const handleConfirm = () => {
+    localStorage.setItem("orderData", JSON.stringify(order));
+    navigate("/purchase/confirmation", { state: { order } });
   };
 
   return (
-    <div>
-      <h1>View Order</h1>
-
-      <h2>Items</h2>
-      {cartState.items.length === 0 ? (
-        <p>Your cart is empty</p>
+    <div className="view-order-container">
+      <h2>Order Summary</h2>
+      {items.length === 0 ? (
+        <p>No items in order.</p>
       ) : (
-        <>
-          {cartState.items.map((item) => (
-            <div key={item.id}>
-              {item.name} × {item.quantity} — ${(item.price * item.quantity).toFixed(2)}
-            </div>
+        <ul>
+          {items.map((item, index) => (
+            <li key={index}>
+              {item.name} × {item.quantity} — $
+              {(item.price * item.quantity).toFixed(2)}
+            </li>
           ))}
-        </>
+        </ul>
       )}
-
-      <h3>Total Items: {getTotalItems()}</h3>
-      <h3>Total Price: ${getTotalPrice().toFixed(2)}</h3>
-
-      <h2>Shipping Address</h2>
-      <p>
-        {shippingData.addressLine1} <br />
-        {shippingData.addressLine2 && <>{shippingData.addressLine2}<br /></>}
-        {shippingData.city}, {shippingData.state} {shippingData.zip}
-      </p>
-
-      <button onClick={() => navigate("/purchase/shippingEntry")}>Back</button>
-      <button onClick={handleConfirmOrder}>Confirm Order</button>
+      <h3>Total Amount: ${total.toFixed(2)}</h3>
+      <button onClick={handleConfirm}>Confirm Order</button>
     </div>
   );
 }

@@ -1,92 +1,98 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useCart } from "../contexts/CartContext";
 
-function PaymentEntry() {
+const PaymentEntry = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { getTotalPrice } = useCart();
-  const shippingData = location.state?.shippingData;
+  const prevOrder =
+    location.state?.order || JSON.parse(localStorage.getItem("orderData")) || {};
 
-  const [paymentData, setPaymentData] = useState({
+  const [paymentInfo, setPaymentInfo] = useState({
+    cardholderName: "",
     cardNumber: "",
-    nameOnCard: "",
     expiry: "",
     cvv: "",
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setPaymentData((prev) => ({ ...prev, [name]: value }));
+    setPaymentInfo({ ...paymentInfo, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (
-      !paymentData.cardNumber ||
-      !paymentData.nameOnCard ||
-      !paymentData.expiry ||
-      !paymentData.cvv
+      !paymentInfo.cardholderName ||
+      !paymentInfo.cardNumber ||
+      !paymentInfo.expiry ||
+      !paymentInfo.cvv
     ) {
-      alert("Please fill in all payment fields");
+      alert("Please fill in all fields");
       return;
     }
 
-    navigate("/purchase/confirmation", { state: { shippingData } });
+    localStorage.setItem("paymentInfo", JSON.stringify(paymentInfo));
+
+    // ✅ Next: review order
+    navigate("/purchase/viewOrder", { state: { order: prevOrder } });
   };
 
   return (
-    <div>
-      <h1>Game-Start Payment Entry Page</h1>
-
-      <h2>Order Total: ${getTotalPrice().toFixed(2)}</h2>
-
+    <div className="form-container">
+      <h2>Payment Information</h2>
       <form onSubmit={handleSubmit}>
-        <label>
-          Card Number:
+        <div className="form-group">
+          <label>Cardholder Name</label>
           <input
+            type="text"
+            name="cardholderName"
+            value={paymentInfo.cardholderName}
+            onChange={handleChange}
+            placeholder="John Doe"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Card Number</label>
+          <input
+            type="text"
             name="cardNumber"
-            value={paymentData.cardNumber}
+            value={paymentInfo.cardNumber}
             onChange={handleChange}
+            placeholder="1111 2222 3333 4444"
             required
           />
-        </label>
+        </div>
 
-        <label>
-          Name on Card:
+        <div className="form-group">
+          <label>Expiry Date</label>
           <input
-            name="nameOnCard"
-            value={paymentData.nameOnCard}
-            onChange={handleChange}
-            required
-          />
-        </label>
-
-        <label>
-          Expiry Date (MM/YY):
-          <input
+            type="text"
             name="expiry"
-            value={paymentData.expiry}
+            value={paymentInfo.expiry}
             onChange={handleChange}
+            placeholder="MM/YY"
             required
           />
-        </label>
+        </div>
 
-        <label>
-          CVV:
+        <div className="form-group">
+          <label>CVV</label>
           <input
+            type="password"
             name="cvv"
-            value={paymentData.cvv}
+            value={paymentInfo.cvv}
             onChange={handleChange}
+            placeholder="123"
             required
           />
-        </label>
+        </div>
 
-        <button type="submit">Pay and Confirm Order</button>
+        <button type="submit">Next: Review Order</button>
       </form>
     </div>
   );
-}
+};
 
 export default PaymentEntry;

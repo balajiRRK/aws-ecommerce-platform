@@ -1,48 +1,78 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCart } from "../contexts/CartContext";
+import { StatePayload } from "../StatePayload";
 
-function Purchase() {
+const Purchase = () => {
+  const [order, setOrder] = useState(StatePayload);
   const navigate = useNavigate();
-  const { addToCart, cartState, getTotalItems } = useCart();
 
-  // Temporary product list — replace with your backend data if needed
   const products = [
-    { id: 1, name: "Game Console", price: 299.99 },
-    { id: 2, name: "Wireless Controller", price: 59.99 },
-    { id: 3, name: "Headset", price: 89.99 },
+    { name: "Legend of Zelda: Breath of The Wild", price: 59.99 },
+    { name: "Just Dance 88", price: 49.99 },
+    { name: "Madden 2054", price: 69.99 },
+    { name: "NBA 2K54", price: 69.99 },
+    { name: "Flappy Bird", price: 4.99 },
   ];
 
-  const handleCheckout = () => {
-    if (cartState.items.length === 0) {
-      alert("Please add items to your cart before proceeding.");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const items = products
+      .map((product, idx) => ({
+        name: product.name,
+        price: product.price,
+        quantity: parseInt(order.buyQuantity[idx]) || 0,
+      }))
+      .filter((item) => item.quantity > 0);
+
+    if (items.length === 0) {
+      alert("Please select at least one item before proceeding.");
       return;
     }
-    navigate("/purchase/shippingEntry");
+
+    const total = items.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
+
+    const updatedOrder = { ...order, items, total };
+    setOrder(updatedOrder);
+    localStorage.setItem("orderData", JSON.stringify(updatedOrder));
+
+    // ✅ Go to shipping first
+    navigate("/purchase/shippingEntry", { state: { order: updatedOrder } });
+  };
+
+  const handleChange = (index, value) => {
+    const newOrder = { ...order };
+    newOrder.buyQuantity[index] = value;
+    setOrder(newOrder);
   };
 
   return (
-    <div>
-      <h1>Welcome to Game-Start!</h1>
-      <h2>Available Products</h2>
-
-      {products.map((product) => (
-        <div key={product.id} style={{ marginBottom: "10px" }}>
-          <strong>{product.name}</strong> - ${product.price.toFixed(2)}
-          <button
-            onClick={() => addToCart(product)}
-            style={{ marginLeft: "10px" }}
-          >
-            Add to Cart
-          </button>
-        </div>
-      ))}
-
-      <h3>Items in Cart: {getTotalItems()}</h3>
-
-      <button onClick={handleCheckout}>Proceed to Shipping</button>
+    <div className="purchase-container">
+      <h2>Game-Start Purchase Page</h2>
+      <form onSubmit={handleSubmit} className="purchase-form">
+        {products.map((product, idx) => (
+          <div className="form-group" key={idx}>
+            <label htmlFor={`product-${idx}`}>
+              {product.name} — ${product.price.toFixed(2)}
+            </label>
+            <input
+              id={`product-${idx}`}
+              type="number"
+              min="0"
+              value={order.buyQuantity[idx] || ""}
+              onChange={(e) => handleChange(idx, e.target.value)}
+            />
+          </div>
+        ))}
+        <button className="button" type="submit">
+          Next: Shipping Info
+        </button>
+      </form>
     </div>
   );
-}
+};
 
 export default Purchase;
