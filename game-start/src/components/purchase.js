@@ -65,25 +65,56 @@ const Purchase = () => {
   };
 
   return (
-    <div className="purchase-container">
-      <h2>Game-Start Purchase Page</h2>
-      <form onSubmit={handleSubmit} className="purchase-form">
-        {products.map((product, idx) => (
-          <div className="form-group" key={idx}>
-            <label htmlFor={`product-${idx}`}>
-              {product.name} — ${product.price.toFixed(2)}
-            </label>
-            <input
-              id={`product-${idx}`}
-              type="number"
-              min="0"
-              value={order.buyQuantity[idx] || ""}
-              onChange={(e) => handleChange(idx, e.target.value)}
-            />
+    <div className="container-fluid">
+      <div className="hero-section">
+        <h1>Shop Games</h1>
+        <p>Pick your favorites and start playing today</p>
+      </div>
+      <div className="container py-4">
+        <div className="row justify-content-center">
+          <div className="col-12 col-lg-8 col-xl-7">
+            <div className="card shadow-sm">
+              <div className="card-body p-4">
+                <h2 className="h3 text-center mb-1">Game-Start Store</h2>
+                <p className="text-center text-muted mb-4">Select the games you want and choose quantities.</p>
+
+                <form onSubmit={handleSubmit}>
+                  <ul className="list-group mb-4">
+                    {products.map((product, idx) => (
+                      <li
+                        className="list-group-item d-flex align-items-center justify-content-between"
+                        key={idx}
+                      >
+                        <div className="me-3">
+                          <div className="fw-semibold">{product.name}</div>
+                          <div className="text-muted small">${product.price.toFixed(2)}</div>
+                        </div>
+                        <div className="input-group input-group-sm" style={{ maxWidth: "160px" }}>
+                          <span className="input-group-text">Qty</span>
+                          <input
+                            id={`product-${idx}`}
+                            type="number"
+                            min="0"
+                            className="form-control text-end"
+                            value={order.buyQuantity[idx] || ""}
+                            onChange={(e) => handleChange(idx, e.target.value)}
+                          />
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="d-grid">
+                    <button type="submit" className="btn btn-primary btn-lg">
+                      Next: Payment Info
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
-        ))}
-        <button type="submit">Next: Payment Info</button>
-      </form>
+        </div>
+      </div>
     </div>
   );
 };

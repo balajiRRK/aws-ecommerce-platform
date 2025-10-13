@@ -80,6 +80,7 @@ const AboutUs = () => {
           <div className="team-grid">
             <div className="team-member">
               <div className="member-photo">
+                    Place photos here!
                 <img src="https://via.placeholder.com/200x200/4a90e2/ffffff?text=CEO" alt="CEO" />
               </div>
               <div className="member-info">
