@@ -3,6 +3,7 @@ export const StatePayload = {
         card_number: "",
         expir_date: "", 
         cvvCode: "", 
+        card_holder_name: "",
     },
 
     shipping_address:  {
