@@ -1,97 +1,48 @@
 import React from "react";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { StatePayload } from "../StatePayload";
 import { useCart } from "../contexts/CartContext";
 
-const Purchase = () => {
-  const [order, setOrder] = useState(StatePayload);
-  const [quantities, setQuantities] = useState({});
-  const navigate = useNavigate(); //This is our hook for React
-  const { addToCart } = useCart();
-  let title = "Game-Start Purchase Page";
+function Purchase() {
+  const navigate = useNavigate();
+  const { addToCart, cartState, getTotalItems } = useCart();
 
-  //This action handler is used to route to our next page
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    navigate("/purchase/paymentEntry", { order: order, setOrder: setOrder });
-  };
-
-  console.log("order: ", order);
-
-  // Example product names, replace with order.products if available
-  // This is just hard coded right now, we'd eventually want it to populate with the data from the backend
+  // Temporary product list — replace with your backend data if needed
   const products = [
-    { id: 1, name: "Legend of Zelda: Breath of The Wild", price: 59.99 },
-    { id: 2, name: "Just Dance 88", price: 49.99 },
-    { id: 3, name: "Madden 2054", price: 69.99 },
-    { id: 4, name: "NBA 2K54", price: 59.99 },
-    { id: 5, name: "Flappy Bird", price: 9.99 },
+    { id: 1, name: "Game Console", price: 299.99 },
+    { id: 2, name: "Wireless Controller", price: 59.99 },
+    { id: 3, name: "Headset", price: 89.99 },
   ];
 
-  const handleQuantityChange = (productId, quantity) => {
-    setQuantities((prev) => ({
-      ...prev,
-      [productId]: quantity,
-    }));
-  };
-
-  const handleAddToCart = (product) => {
-    const quantity = quantities[product.id] || 1;
-    if (quantity > 0) {
-      addToCart(product, quantity);
-      // Reset quantity after adding to cart
-      setQuantities((prev) => ({
-        ...prev,
-        [product.id]: "",
-      }));
+  const handleCheckout = () => {
+    if (cartState.items.length === 0) {
+      alert("Please add items to your cart before proceeding.");
+      return;
     }
+    navigate("/purchase/shippingEntry");
   };
 
   return (
-    <div className="purchase-container">
-      <h2>{title}</h2>
-      <div className="products-grid">
-        {products.map((product) => (
-          <div className="product-card" key={product.id}>
-            <h3>{product.name}</h3>
-            <p className="price">${product.price}</p>
-            <div className="product-controls">
-              <input
-                id={`product-${product.id}`}
-                type="number"
-                min="1"
-                placeholder="Qty"
-                value={quantities[product.id] || ""}
-                data-testid={`product-input-${product.id}`}
-                onChange={(e) =>
-                  handleQuantityChange(
-                    product.id,
-                    parseInt(e.target.value) || ""
-                  )
-                }
-                className="quantity-input"
-              />
-              <button
-                type="button"
-                onClick={() => handleAddToCart(product)}
-                className="add-to-cart-btn"
-                data-testid={`add-to-cart-${product.id}`}
-              >
-                Add to Cart
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+    <div>
+      <h1>Welcome to Game-Start!</h1>
+      <h2>Available Products</h2>
 
-      <form onSubmit={handleSubmit} className="checkout-form">
-        <button className="button checkout-button" type="submit">
-          Proceed to Checkout
-        </button>
-      </form>
+      {products.map((product) => (
+        <div key={product.id} style={{ marginBottom: "10px" }}>
+          <strong>{product.name}</strong> - ${product.price.toFixed(2)}
+          <button
+            onClick={() => addToCart(product)}
+            style={{ marginLeft: "10px" }}
+          >
+            Add to Cart
+          </button>
+        </div>
+      ))}
+
+      <h3>Items in Cart: {getTotalItems()}</h3>
+
+      <button onClick={handleCheckout}>Proceed to Shipping</button>
     </div>
   );
-};
+}
 
 export default Purchase;

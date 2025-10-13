@@ -1,3 +1,5 @@
+import "./App.css";
+import React from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -20,14 +22,14 @@ function App() {
         <Router>
           <div className="content">
             <div className="app-header">
-              <Link to="/purchase" style={{ textDecoration: 'none' }}>
+              <Link to="/purchase" style={{ textDecoration: "none" }}>
                 <button className="back-to-store-btn">🏪 Back to Store</button>
               </Link>
               <ShoppingCart />
             </div>
             <Routes>
-              <Route path="/purchase" element={<Purchase />} />
               <Route path="/" element={<Navigate replace to="/purchase" />} />
+              <Route path="/purchase" element={<Purchase />} />
               <Route path="/purchase/paymentEntry" element={<PaymentEntry />} />
               <Route
                 path="/purchase/shippingEntry"
