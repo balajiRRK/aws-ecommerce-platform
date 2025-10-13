@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { StatePayload } from "../StatePayload";
+import { useCart } from "../contexts/CartContext";
 
 const Purchase = () => {
   const [order, setOrder] = useState(StatePayload);
   const navigate = useNavigate();
+  const { addToCart, clearCart } = useCart();
 
   const products = [
-    { name: "Legend of Zelda: Breath of The Wild", price: 59.99 },
-    { name: "Just Dance 88", price: 49.99 },
-    { name: "Madden 2054", price: 69.99 },
-    { name: "NBA 2K54", price: 69.99 },
-    { name: "Flappy Bird", price: 4.99 },
+    { id: 0, name: "Legend of Zelda: Breath of The Wild", price: 59.99 },
+    { id: 1, name: "Just Dance 88", price: 49.99 },
+    { id: 2, name: "Madden 2054", price: 69.99 },
+    { id: 3, name: "NBA 2K54", price: 69.99 },
+    { id: 4, name: "Flappy Bird", price: 4.99 },
   ];
 
   const handleSubmit = (e) => {
@@ -38,6 +40,19 @@ const Purchase = () => {
     const updatedOrder = { ...order, items, total };
     setOrder(updatedOrder);
     localStorage.setItem("orderData", JSON.stringify(updatedOrder));
+    // Update cart context so ShoppingCart shows the chosen items
+    try {
+      // clear any existing cart content for this flow and add new selections
+      clearCart();
+      items.forEach((item) => {
+        // find product price and id from products list (items currently include name/price/quantity)
+        const prod = products.find((p) => p.name === item.name);
+        addToCart({ id: prod?.id ?? item.id, name: item.name, price: item.price }, item.quantity);
+      });
+    } catch (err) {
+      // if cart context isn't available for some reason, continue without blocking
+      console.warn("Cart context unavailable:", err);
+    }
 
     // ✅ Go to Payment page next
     navigate("/purchase/paymentEntry", { state: { order: updatedOrder } });

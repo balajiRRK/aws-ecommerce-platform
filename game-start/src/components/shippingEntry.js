@@ -85,6 +85,7 @@ const ShippingEntry = () => {
             value={shippingInfo.city}
             onChange={handleChange}
             required
+            placeholder="Columbus"
           />
         </div>
 
@@ -96,6 +97,7 @@ const ShippingEntry = () => {
             value={shippingInfo.state}
             onChange={handleChange}
             required
+            placeholder="OH"
           />
         </div>
 
@@ -107,6 +109,7 @@ const ShippingEntry = () => {
             value={shippingInfo.zip}
             onChange={handleChange}
             required
+            placeholder="43004"
           />
         </div>
 
