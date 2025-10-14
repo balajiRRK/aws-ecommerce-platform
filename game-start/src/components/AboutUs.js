@@ -102,14 +102,26 @@ const AboutUs = () => {
 
             <div className="team-member">
               <div className="member-photo">
-                <img src="https://via.placeholder.com/200x200/e74c3c/ffffff?text=CTO" alt="CTO" />
+                <img src="https://media.licdn.com/dms/image/v2/D5603AQGtOUWUhGl5aw/profile-displayphoto-scale_200_200/B56Znk8jZvI0AY-/0/1760482703508?e=1763596800&v=beta&t=6Cps04fgZ3GW9Myh9yz4yFnTeg0fmHSq0zGwLcsrHp0" alt="CEO Liad Naveh" />
               </div>
               <div className="member-info">
-                <h3>Name</h3>
+                <h3>Liad Naveh</h3>
                 <h4>Chief Executive Officer</h4>
-                <p><strong>Education:</strong> MS Computer Science from Carnegie Mellon, BS Software Engineering from UC Berkeley</p>
-                <p><strong>Experience:</strong> 12+ years building scalable platforms, former Senior Engineer at Steam, cloud architecture expert</p>
-                <p><strong>Passion:</strong> Building lightning-fast, reliable gaming platforms that can handle millions of users while maintaining exceptional performance</p>
+                <p><strong>Education:</strong> B.S. Computer Science & Engineering with Pre-Medical Track, The Ohio State University (May 2026) | Dean's List (2022-2025) | GPA: 3.95 | A.S. Liberal Arts & Sciences, Cuyahoga Community College | EMT-B Certified</p>
+                <p><strong>Experience:</strong><br />
+                  <ul className="text-start">
+                    <li><strong>Research Pioneer:</strong> Leading cardiac electrophysiology research at Rush University Medical Center under Dr. Hagai Yavin, co-authoring breakthrough publications in Heart Rhythm Journal on radiofrequency ablation techniques that are revolutionizing cardiac care.</li>
+                    <li><strong>Innovation Architect:</strong> Developed advanced image processing algorithms at University of Colorado using MATLAB and Python to extract heart rate data from RGB video analysis—creating next-generation data collection methodologies.</li>
+                    <li><strong>Medical Technology Expert:</strong> As a Technician Assistant at Surgical Theater, installed cutting-edge medical devices in hospitals nationwide, collaborating with healthcare professionals and company executives to optimize surgical precision and patient outcomes.</li>
+                    <li><strong>Emergency Medical Professional:</strong> Certified EMT-B with 200+ hours of intensive field experience across Cleveland Clinic Akron General, Akron Children's Hospital, and Stow Fire Department—mastering critical decision-making under pressure.</li>
+                    <li><strong>Academic Excellence:</strong> Conducted over 150 personalized tutoring sessions in Physics, Chemistry, Organic Chemistry, and Mathematics, improving student performance by an average of 18%.</li>
+                    <li><strong>Surgical Insight:</strong> Shadowed Dr. Maria Madden in advanced surgical procedures including breast cancer treatments, minimally invasive surgeries, and da Vinci Surgical System operations.</li>
+                  </ul>
+                </p>
+                <p><strong>Technical Mastery:</strong> Full-stack development expertise in MATLAB, C/C++, Python, HTML, JavaScript; Advanced proficiency in SolidWorks, Arduino, circuit design; Database management with SQL; Cloud technologies and system architecture.</p>
+                <p><strong>Leadership & Community:</strong> Active member of Students Supporting Israel (SSI), Jewish Runners Club, Soccer Indoor Club, and former Buckeye Solar Racing Club engineer. Youngest server at Cleveland's highest-grossing Italian restaurant, consistently generating $2,000+ in nightly sales.</p>
+                <p><strong>Vision:</strong> Combining cutting-edge technology expertise with deep medical knowledge to create the most innovative, user-centric gaming marketplace in the world. Leveraging emergency medical training to build systems that perform flawlessly under pressure, and research experience to drive data-driven decision making that keeps GameHub at the forefront of the digital gaming revolution.</p>
+                <p><strong>Languages:</strong> Bilingual- Fluent in English and Hebrew</p>
               </div>
             </div>
 
