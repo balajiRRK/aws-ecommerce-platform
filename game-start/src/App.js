@@ -17,6 +17,7 @@ import AboutUs from "./components/AboutUs";
 import ContactUs from "./components/ContactUs";
 import { CartProvider } from "./contexts/CartContext";
 import ShoppingCart from "./components/ShoppingCart";
+import Home from "./components/Home";
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
             <div className="app-header">
                 <nav className="navbar navbar-expand-lg navbar-dark" style={{background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'}}>
                   <div className="container-fluid">
-                    <Link className="navbar-brand fw-bold" to="/purchase">
+                    <Link className="navbar-brand fw-bold" to="/home">
                       🏪 GameHub Store
                     </Link>
                   
@@ -37,9 +38,6 @@ function App() {
                   
                     <div className="collapse navbar-collapse" id="navbarNav">
                       <ul className="navbar-nav me-auto">
-                        <li className="nav-item">
-                          <Link className="nav-link" to="/purchase">Home</Link>
-                        </li>
                         <li className="nav-item">
                           <Link className="nav-link" to="/about">About Us</Link>
                         </li>
@@ -57,6 +55,7 @@ function App() {
 
             <Routes>
               <Route path="/" element={<Navigate replace to="/purchase" />} />
+              <Route path="/home" element={<Home />} />
               <Route path="/purchase" element={<Purchase />} />
               <Route path="/about" element={<AboutUs />} />
               <Route path="/contact" element={<ContactUs />} />
