@@ -23,13 +23,38 @@ const ShoppingCart = () => {
 
   return (
     <div className="shopping-cart">
-      {/* This is where we want to place any fun icons, for lab #6*/}
       <button
-        className="cart-button"
+        className="btn btn-outline-light position-relative"
         onClick={() => setIsOpen(!isOpen)}
         data-testid="cart-button"
+        style={{
+          backgroundColor: '#6f42c1',
+          borderColor: '#6f42c1',
+          color: 'white',
+          fontWeight: '500',
+          borderRadius: '30px',
+          padding: '0.6rem 1.25rem',
+          fontSize: '1rem',
+          transition: 'all 0.2s ease',
+        }}
+        onMouseOver={e => (e.currentTarget.style.backgroundColor = '#8c5ce3')}
+        onMouseOut={e => (e.currentTarget.style.backgroundColor = '#6f42c1')}
       >
-        🛒 Shopping Cart ({getTotalItems()})
+        <span role="img" aria-label="cart" style={{ marginRight: '0.5rem', fontSize: '1.2rem' }}>
+          🛒
+        </span>
+        Shopping Cart
+        <span
+          className="badge bg-light text-dark ms-2"
+          style={{
+            borderRadius: '12px',
+            fontSize: '0.8rem',
+            fontWeight: 'bold',
+            padding: '0.25rem 0.5rem',
+          }}
+        >
+          {getTotalItems()}
+        </span>
       </button>
 
       {/* Cart Dropdown/Modal Related Content!*/}
@@ -37,7 +62,29 @@ const ShoppingCart = () => {
         <div className="cart-dropdown">
           <div className="cart-header">
             <h3>Shopping Cart</h3>
-            <button className="close-button" onClick={() => setIsOpen(false)}>
+            <button
+              className="close-button"
+              onClick={() => setIsOpen(false)}
+              style={{
+                backgroundColor: 'transparent',
+                border: 'none',
+                color: '#ffffff', // bright white for contrast
+                fontSize: '1.5rem',
+                fontWeight: 'bold',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                lineHeight: '1',
+                textShadow: '0 0 4px rgba(0, 0, 0, 0.3)', // subtle shadow for readability
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.color = '#ffccff'; // light lavender hover
+                e.currentTarget.style.transform = 'scale(1.2)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.color = '#ffffff';
+                e.currentTarget.style.transform = 'scale(1)';
+              }}
+            >
               ×
             </button>
           </div>
