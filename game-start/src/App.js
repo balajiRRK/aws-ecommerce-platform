@@ -22,9 +22,9 @@ import Home from "./components/Home";
 function App() {
   return (
     <CartProvider>
-      <div className="App">
+      <div className="App d-flex flex-column min-vh-100">
         <Router>
-          <div className="content">
+          <div className="content flex-grow-1 d-flex flex-column">
             <div className="app-header">
                 <nav className="navbar navbar-expand-lg navbar-dark" style={{background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'}}>
                   <div className="container-fluid">
@@ -54,7 +54,7 @@ function App() {
             </div>
 
             <Routes>
-              <Route path="/" element={<Navigate replace to="/purchase" />} />
+              <Route path="/" element={<Navigate replace to="/home" />} />
               <Route path="/home" element={<Home />} />
               <Route path="/purchase" element={<Purchase />} />
               <Route path="/about" element={<AboutUs />} />
@@ -70,6 +70,20 @@ function App() {
                 element={<ViewConfirmation />}
               />
             </Routes>
+
+            <footer
+              className="py-4 text-white text-center mt-auto"
+              style={{
+                background: '#5a2ca0',
+                backdropFilter: 'blur(5px)',
+                fontSize: '0.9rem',
+              }}
+            >
+              <div className="container">
+                <p className="mb-0">&copy; 2025 GameVault. All rights reserved.</p>
+              </div>
+            </footer>
+
           </div>
         </Router>
       </div>

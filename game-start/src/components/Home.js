@@ -59,19 +59,6 @@ function Home() {
         </div>
       </main>
 
-      <footer
-        className="py-4 text-white text-center mt-auto"
-        style={{
-          background: 'rgba(30, 0, 60, 0.6)',
-          backdropFilter: 'blur(5px)',
-          fontSize: '0.9rem',
-        }}
-      >
-        <div className="container">
-          <p className="mb-0">&copy; 2025 GameVault. All rights reserved.</p>
-        </div>
-      </footer>
-
       {/* ✨ Gradient animation */}
       <style>
         {`
