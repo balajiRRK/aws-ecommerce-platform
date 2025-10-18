@@ -127,14 +127,20 @@ const AboutUs = () => {
 
             <div className="team-member">
               <div className="member-photo">
-                <img src="https://via.placeholder.com/200x200/2ecc71/ffffff?text=CMO" alt="CMO" />
+                <img src="https://media.licdn.com/dms/image/v2/D5603AQFU_LW7XeDScg/profile-displayphoto-shrink_400_400/B56ZVS8_qGGQAk-/0/1740853476431?e=1762387200&v=beta&t=rg6xre0K59Y2Tz-yAH9iVil7ouiWUMJGf2j6xQWY118" alt="CMO" />
               </div>
               <div className="member-info">
-                <h3>Name</h3>
+                <h3>Balaji Radhakrishnan</h3>
                 <h4>Chief Marketing Officer</h4>
-                <p><strong>Education:</strong> MBA Marketing from Wharton, BA Communications from Northwestern</p>
-                <p><strong>Experience:</strong> 10+ years in gaming marketing, former Marketing Director at Ubisoft, social media strategy expert</p>
-                <p><strong>Passion:</strong> Connecting gamers with their perfect games through data-driven marketing and authentic community engagement</p>
+                <p><strong>Education:</strong> B.S. Computer Science & Engineering, The Ohio State University (December 2025) | Dean's List (2022-2025) | GPA: 3.83 </p>
+                <p><strong>Experience:</strong><br />
+                  <ul className="text-start">
+                    <li><strong>Student Data Librarian:</strong> Automated documentation workflows through developing Python scripts to replace manual Excel updates, improving efficiency and accuracy.</li>
+                    <li><strong>Autonomous Driving Researcher:</strong> Enhanced object visualization capabilities by implementing additional identification metrics and indicators for different object types, improving object detection clarity and analytical insights.</li>
+                  </ul>
+                </p>
+                <p><strong>Skills:</strong> Java, Python, C, C++, JavaScript/TypeScript, HTML, CSS, Ruby, Ruby on Rails, x86 Assembly, SQL, Excel, R, MATLAB, Bash, Scheme48 </p>
+                <p><strong>Technical Interests:</strong> Machine Learning, Software Engineering, Data Analysis </p>
               </div>
             </div>
 
