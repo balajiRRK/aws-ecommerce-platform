@@ -146,14 +146,33 @@ const AboutUs = () => {
 
             <div className="team-member">
               <div className="member-photo">
-                <img src="https://via.placeholder.com/200x200/9b59b6/ffffff?text=CFO" alt="CFO" />
+                <img src="https://media.licdn.com/dms/image/v2/D4D03AQElt8sE4Hy5pQ/profile-displayphoto-scale_200_200/B4DZmPHgq0GwAY-/0/1759042735627?e=2147483647&v=beta&t=muPcTL-kolkAgRc2ZYdXnDgO0hqgnoywSXadJ5CiNt4" alt="CFO" />
               </div>
               <div className="member-info">
-                <h3>Name</h3>
+                <h3>Kaivalya Pitale</h3>
                 <h4>Chief Financial Officer</h4>
-                <p><strong>Education:</strong> MBA Finance from Harvard, CPA, BS Accounting from NYU</p>
-                <p><strong>Experience:</strong> 14+ years in tech finance, former Finance Director at Activision Blizzard, M&A specialist</p>
-                <p><strong>Passion:</strong> Optimizing financial strategies to fuel growth while maintaining sustainable business practices in the dynamic gaming market</p>
+                <p><strong>Education:</strong>  M.S. Computer Science & Engineering, The Ohio State University (May 2026) | B.E. Computer Science & Engineering, Pune Institute of Computer Technology (May 2023)</p>
+<p><strong>Experience:</strong><br />
+  <ul className="text-start">
+    <li><strong>Business Analyst & Manager:</strong> Bridged communication between IT and business stakeholders at HDFC Bank. Worked in API testing, database management, project portfolio management, and business rule engines while leveraging Atlassian tools like Jira, Confluence, and Zephyr. Also automated synthetic data preparation for improved testing efficiency.</li>
+    
+    <li><strong>AI & Python Developer:</strong> At Mass Technologies, developed machine learning and computer vision solutions including disease detection in seeds using OpenCV and object size estimation. Also contributed to backend automation, Python scripting, and data-driven analysis for internal tools.</li>
+    
+    <li><strong>Machine Learning Intern:</strong> At GirlScript Technologies, gained hands-on experience with AI, machine learning, and chatbot development while working on practical learning objectives.</li>
+    
+    <li><strong>Machine Learning Head:</strong> As Overall ML Head at PICT CSI Student Branch, led a technical team in developing in-house AI applications, conducted workshops on ML fundamentals, and managed large-scale technical events including XENIA, the annual tech fest.</li>
+  </ul>
+</p>
+
+                <p><strong>Technical Skills:</strong><br />
+  <ul className="text-start">
+    <li><strong>Programming Languages:</strong> C, C++, Java, Python (AI, ML, and Data Science).</li>
+    <li><strong>Web Development:</strong> HTML, CSS, JavaScript, and MERN Stack (MongoDB, Express, React, Node.js).</li>
+    <li><strong>Mobile Development:</strong> Proficient in Android app development using Kotlin.</li>
+    <li><strong>Database Management:</strong> Experienced with SQL and data-driven applications.</li>
+  </ul>
+</p>
+
               </div>
             </div>
           </div>
