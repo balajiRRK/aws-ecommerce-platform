@@ -1,0 +1,205 @@
+/* =================
+   BOOTSTRAP INTEGRATION & CUSTOM STYLES
+   ================= */
+
+/* Custom overrides for better branding */
+.App {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.navbar-brand {
+  font-size: 1.5rem !important;
+}
+
+/* Custom card hover effects */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+/* =================
+   HERO SECTION
+   ================= */
+
+.hero-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 4rem 2rem;
+  border-radius: 10px;
+  text-align: center;
+  margin: 2rem;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* =================
+   ABOUT US STYLES
+   ================= */
+
+.member-photo img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  border: 4px solid #667eea;
+}
+
+.member-info h3 {
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.member-info h4 {
+  color: #667eea;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.member-info p {
+  text-align: left;
+  margin-bottom: 0.8rem;
+  line-height: 1.5;
+}
+
+/* =================
+   CONTACT US STYLES
+   ================= */
+
+.contact-details {
+  text-align: left !important;
+}
+
+.contact-details p {
+  margin-bottom: 0.8rem;
+  line-height: 1.5;
+}
+
+.contact-details a {
+  color: #667eea;
+  text-decoration: none;
+}
+
+.contact-details a:hover {
+  text-decoration: underline;
+}
+
+.policy-section {
+  margin-bottom: 2rem;
+}
+
+.policy-section h3 {
+  color: #667eea;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.policy-section ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.policy-section li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.policy-section li:last-child {
+  border-bottom: none;
+}
+
+.faq-item {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-item h3 {
+  color: #667eea;
+  margin-bottom: 0.8rem;
+  font-size: 1.2rem;
+}
+
+.faq-item p {
+  line-height: 1.6;
+  text-align: left;
+}
+
+.resource-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.resource-link:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+.resource-link h3 {
+  color: #667eea;
+  margin-bottom: 0.8rem;
+  font-size: 1.2rem;
+}
+
+.resource-link p {
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Custom button styles */
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  transition: transform 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+  transform: translateY(-2px);
+}
+
+.btn-primary:focus {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+/* =================
+   RESPONSIVE DESIGN
+   ================= */
+
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 2rem;
+  }
+  
+  .hero-section p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 2rem 1rem;
+  }
+}
