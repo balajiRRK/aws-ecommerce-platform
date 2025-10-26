@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { inventoryService, handleAPIError } from "../services/api"
 
 const ViewConfirmation = () => {
   const location = useLocation();
@@ -8,6 +9,8 @@ const ViewConfirmation = () => {
   const [order, setOrder] = useState({});
   const [shippingInfo, setShippingInfo] = useState({});
   const [paymentInfo, setPaymentInfo] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const savedOrder =
@@ -16,10 +19,48 @@ const ViewConfirmation = () => {
       JSON.parse(localStorage.getItem("shippingInfo")) || {};
     const savedPayment =
       JSON.parse(localStorage.getItem("paymentInfo")) || {};
-
+      
     setOrder(savedOrder);
     setShippingInfo(savedShipping);
     setPaymentInfo(savedPayment);
+
+    const postOrder = async () => {
+      try {
+        setError(null);
+        console.log("savedOrder.items:", savedOrder.items)
+        const response = await inventoryService.checkAvailability(savedOrder.items);
+        console.log("response:", response)
+        console.log("response.success:", response.success)
+        console.log("response.data:", response.data)
+         
+        if (response.success && response.data)
+        { 
+          console.log("it worked")
+        } else {
+          console.log("it failed")
+        }
+      } catch (err) {
+        console.error('Error confirming order:', err);
+        const errorInfo = handleAPIError(err);
+        setError(errorInfo.message);
+      } finally {
+        setLoading(false)
+      }
+    };
+  
+    // ------------
+
+    // const savedOrder =
+    //   location.state?.order || JSON.parse(localStorage.getItem("orderData")) || {};
+    // const savedShipping =
+    //   JSON.parse(localStorage.getItem("shippingInfo")) || {};
+    // const savedPayment =
+    //   JSON.parse(localStorage.getItem("paymentInfo")) || {};
+
+    // setOrder(savedOrder);
+    // setShippingInfo(savedShipping);
+    // setPaymentInfo(savedPayment);
+    postOrder();
   }, [location.state]);
 
   const orderNumber = Math.random().toString(36).substring(2, 8).toUpperCase();
@@ -30,6 +71,15 @@ const ViewConfirmation = () => {
   };
 
   return (
+    // {loading && (
+    //   <div className="text-center py-5">
+    //     <div className="spinner-border text-primary" role="status">
+    //       <span className="visually-hidden">Loading...</span>
+    //     </div>
+    //     <p className="mt-3 text-muted">Loading available games...</p>
+    //   </div>
+    // )}
+
     <div className="container-fluid">
       <div className="hero-section bg-success">
         <h1>✓ Order Confirmed!</h1>
