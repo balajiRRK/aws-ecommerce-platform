@@ -12,6 +12,9 @@ const ViewConfirmation = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const [orderNumber, setOrderNumber] = useState("")
+  const [estimatedDelivery, setEstimatedDelivery] = useState(null);
+
   useEffect(() => {
     const savedOrder =
       location.state?.order || JSON.parse(localStorage.getItem("orderData")) || {};
@@ -29,15 +32,15 @@ const ViewConfirmation = () => {
         setError(null);
         console.log("savedOrder.items:", savedOrder.items)
         const response = await inventoryService.checkAvailability(savedOrder.items);
-        console.log("response:", response)
-        console.log("response.success:", response.success)
-        console.log("response.data:", response.data)
-         
-        if (response.success && response.data)
+
+        if (response.success)
         { 
-          console.log("it worked")
+          console.log("Order confirmed!");
+          setOrderNumber(response.orderNumber);
+          setEstimatedDelivery(new Date(response.estimatedDelivery));
         } else {
-          console.log("it failed")
+          console.log("Order failed!");
+          throw new Error("Cannot confirm order, some items are unavailable")
         }
       } catch (err) {
         console.error('Error confirming order:', err);
@@ -48,38 +51,38 @@ const ViewConfirmation = () => {
       }
     };
   
-    // ------------
-
-    // const savedOrder =
-    //   location.state?.order || JSON.parse(localStorage.getItem("orderData")) || {};
-    // const savedShipping =
-    //   JSON.parse(localStorage.getItem("shippingInfo")) || {};
-    // const savedPayment =
-    //   JSON.parse(localStorage.getItem("paymentInfo")) || {};
-
-    // setOrder(savedOrder);
-    // setShippingInfo(savedShipping);
-    // setPaymentInfo(savedPayment);
     postOrder();
   }, [location.state]);
-
-  const orderNumber = Math.random().toString(36).substring(2, 8).toUpperCase();
 
   const handleBackToShop = () => {
     localStorage.clear();
     navigate("/purchase");
   };
 
-  return (
-    // {loading && (
-    //   <div className="text-center py-5">
-    //     <div className="spinner-border text-primary" role="status">
-    //       <span className="visually-hidden">Loading...</span>
-    //     </div>
-    //     <p className="mt-3 text-muted">Loading available games...</p>
-    //   </div>
-    // )}
+  if (loading) {
+    return (
+      <div className="text-center py-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <p className="mt-3 text-muted">Loading available games...</p>
+      </div>
+    );
+  }
 
+  if (error) {
+    return (
+      <div className="text-center py-5">
+        <h1 className="text-danger">⚠️ Order Error</h1>
+        <p>{error}</p>
+        <button className="btn btn-primary mt-3" onClick={() => navigate("/purchase")}>
+          ← Back to Store
+        </button>
+      </div>
+    );
+  }
+
+  return (
     <div className="container-fluid">
       <div className="hero-section bg-success">
         <h1>✓ Order Confirmed!</h1>
@@ -97,7 +100,7 @@ const ViewConfirmation = () => {
                 <p className="mb-0">
                   <strong>Order Number:</strong> #{orderNumber}
                   <br />
-                  <strong>Estimated Delivery:</strong> {new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString(
+                  <strong>Estimated Delivery:</strong> {estimatedDelivery.toLocaleDateString(
                     "en-US",
                     { weekday: "long", month: "long", day: "numeric", year: "numeric" }
                   )}
@@ -191,7 +194,7 @@ const ViewConfirmation = () => {
         </div>
       </div>
     </div>
-  );
+  )
 };
 
 export default ViewConfirmation;
