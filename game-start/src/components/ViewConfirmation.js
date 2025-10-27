@@ -65,7 +65,7 @@ const ViewConfirmation = () => {
         <div className="spinner-border text-primary" role="status">
           <span className="visually-hidden">Loading...</span>
         </div>
-        <p className="mt-3 text-muted">Loading available games...</p>
+        <p className="mt-3 text-muted">Confirming if order can be processed...</p>
       </div>
     );
   }
