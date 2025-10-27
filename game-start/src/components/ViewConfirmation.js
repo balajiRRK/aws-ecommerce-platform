@@ -30,17 +30,15 @@ const ViewConfirmation = () => {
     const postOrder = async () => {
       try {
         setError(null);
-        console.log("savedOrder.items:", savedOrder.items)
         const response = await inventoryService.checkAvailability(savedOrder.items);
 
         if (response.success)
         { 
-          console.log("Order confirmed!");
           setOrderNumber(response.orderNumber);
           setEstimatedDelivery(new Date(response.estimatedDelivery));
         } else {
-          console.log("Order failed!");
-          throw new Error("Cannot confirm order, some items are unavailable")
+          const apiError = response.error || "Cannot confirm order, some items are unavailable";
+          throw new Error(apiError)
         }
       } catch (err) {
         console.error('Error confirming order:', err);

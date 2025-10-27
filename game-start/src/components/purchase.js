@@ -57,20 +57,20 @@ const Purchase = () => {
       return;
     }
 
-    // Check if requested quantities exceed available stock
-    const invalidItems = items.filter((item, idx) => {
-      const product = products.find(p => p.id === item.id);
-      return item.quantity > product.quantity;
-    });
+    // // Check if requested quantities exceed available stock
+    // const invalidItems = items.filter((item, idx) => {
+    //   const product = products.find(p => p.id === item.id);
+    //   return item.quantity > product.quantity;
+    // });
 
-    if (invalidItems.length > 0) {
-      const itemNames = invalidItems.map(item => {
-        const product = products.find(p => p.id === item.id);
-        return `${item.name} (available: ${product.quantity}, requested: ${item.quantity})`;
-      }).join('\n');
-      alert(`The following items have insufficient stock:\n\n${itemNames}\n\nPlease adjust your quantities.`);
-      return;
-    }
+    // if (invalidItems.length > 0) {
+    //   const itemNames = invalidItems.map(item => {
+    //     const product = products.find(p => p.id === item.id);
+    //     return `${item.name} (available: ${product.quantity}, requested: ${item.quantity})`;
+    //   }).join('\n');
+    //   alert(`The following items have insufficient stock:\n\n${itemNames}\n\nPlease adjust your quantities.`);
+    //   return;
+    // }
 
     const total = items.reduce(
       (sum, item) => sum + item.price * item.quantity,
@@ -170,7 +170,7 @@ const Purchase = () => {
                               id={`product-${idx}`}
                               type="number"
                               min="0"
-                              max={product.quantity}
+                              // max={product.quantity}
                               className="form-control text-end"
                               value={order.buyQuantity[idx] || ""}
                               onChange={(e) => handleChange(idx, e.target.value)}
