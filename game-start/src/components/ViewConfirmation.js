@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { inventoryService, handleAPIError } from "../services/api"
 
 const ViewConfirmation = () => {
   const location = useLocation();
@@ -8,6 +9,11 @@ const ViewConfirmation = () => {
   const [order, setOrder] = useState({});
   const [shippingInfo, setShippingInfo] = useState({});
   const [paymentInfo, setPaymentInfo] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const [orderNumber, setOrderNumber] = useState("")
+  const [estimatedDelivery, setEstimatedDelivery] = useState(null);
 
   useEffect(() => {
     const savedOrder =
@@ -16,18 +22,63 @@ const ViewConfirmation = () => {
       JSON.parse(localStorage.getItem("shippingInfo")) || {};
     const savedPayment =
       JSON.parse(localStorage.getItem("paymentInfo")) || {};
-
+      
     setOrder(savedOrder);
     setShippingInfo(savedShipping);
     setPaymentInfo(savedPayment);
-  }, [location.state]);
 
-  const orderNumber = Math.random().toString(36).substring(2, 8).toUpperCase();
+    const postOrder = async () => {
+      try {
+        setError(null);
+        const response = await inventoryService.checkAvailability(savedOrder.items);
+
+        if (response.success)
+        { 
+          setOrderNumber(response.orderNumber);
+          setEstimatedDelivery(new Date(response.estimatedDelivery));
+        } else {
+          const apiError = response.error || "Cannot confirm order, some items are unavailable";
+          throw new Error(apiError)
+        }
+      } catch (err) {
+        console.error('Error confirming order:', err);
+        const errorInfo = handleAPIError(err);
+        setError(errorInfo.message);
+      } finally {
+        setLoading(false)
+      }
+    };
+  
+    postOrder();
+  }, [location.state]);
 
   const handleBackToShop = () => {
     localStorage.clear();
     navigate("/purchase");
   };
+
+  if (loading) {
+    return (
+      <div className="text-center py-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <p className="mt-3 text-muted">Confirming if order can be processed...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-5">
+        <h1 className="text-danger">⚠️ Order Error</h1>
+        <p>{error}</p>
+        <button className="btn btn-primary mt-3" onClick={() => navigate("/purchase")}>
+          ← Back to Store
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="container-fluid">
@@ -47,7 +98,7 @@ const ViewConfirmation = () => {
                 <p className="mb-0">
                   <strong>Order Number:</strong> #{orderNumber}
                   <br />
-                  <strong>Estimated Delivery:</strong> {new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString(
+                  <strong>Estimated Delivery:</strong> {estimatedDelivery.toLocaleDateString(
                     "en-US",
                     { weekday: "long", month: "long", day: "numeric", year: "numeric" }
                   )}
@@ -141,7 +192,7 @@ const ViewConfirmation = () => {
         </div>
       </div>
     </div>
-  );
+  )
 };
 
 export default ViewConfirmation;
