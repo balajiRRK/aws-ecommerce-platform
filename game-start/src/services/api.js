@@ -12,8 +12,7 @@ const inventoryAPI = axios.create({
   timeout: 10_000,
 });
 
-// Inventory Management API calls
-export const inventoryService = {
+export const apiService = {
   // Get all available items
   getAllItems: async () => {
     try {
@@ -52,7 +51,7 @@ export const inventoryService = {
   // Check inventory availability
   checkAvailability: async (items) => {
     try {
-      const response = await inventoryAPI.post('/inventory-management/inventory/check', { items });
+      const response = await inventoryAPI.post('/order-processing/order', { items });
       return response.data;
     } catch (error) {
       console.error('Error checking inventory availability:', error);
