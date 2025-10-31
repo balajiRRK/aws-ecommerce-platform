@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { inventoryService, handleAPIError } from "../services/api"
+import { apiService, handleAPIError } from "../services/api"
 
 const ViewConfirmation = () => {
   const location = useLocation();
@@ -30,7 +30,7 @@ const ViewConfirmation = () => {
     const postOrder = async () => {
       try {
         setError(null);
-        const response = await inventoryService.checkAvailability(savedOrder.items);
+        const response = await apiService.checkAvailability(savedOrder.items);
 
         if (response.success)
         { 
