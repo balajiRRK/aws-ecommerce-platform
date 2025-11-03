@@ -86,4 +86,4 @@ export const handleAPIError = (error) => {
   }
 };
 
-export default { inventoryService, handleAPIError };
+export default { apiService, handleAPIError };

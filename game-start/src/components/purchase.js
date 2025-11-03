@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { StatePayload } from "../StatePayload";
 import { useCart } from "../contexts/CartContext";
-import { inventoryService, handleAPIError } from "../services/api";
+import { apiService, handleAPIError } from "../services/api";
 
 const Purchase = () => {
   const [order, setOrder] = useState(StatePayload);
@@ -18,7 +18,7 @@ const Purchase = () => {
       try {
         setLoading(true);
         setError(null);
-        const response = await inventoryService.getAllItems();
+        const response = await apiService.getAllItems();
         
         if (response.success && response.data) {
           setProducts(response.data);
