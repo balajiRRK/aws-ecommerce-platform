@@ -30,7 +30,7 @@ const ViewConfirmation = () => {
     const postOrder = async () => {
       try {
         setError(null);
-        const response = await apiService.checkAvailability(savedOrder.items);
+        const response = await apiService.processOrder(savedOrder);
 
         if (response.success)
         { 
