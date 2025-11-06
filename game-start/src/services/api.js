@@ -48,10 +48,10 @@ export const apiService = {
     }
   },
 
-  // Check inventory availability
-  checkAvailability: async (items) => {
+  // Validate order and process
+  processOrder: async (order) => {
     try {
-      const response = await inventoryAPI.post('/order-processing/order', { items });
+      const response = await inventoryAPI.post('/order-processing/order', { order });
       return response.data;
     } catch (error) {
       console.error('Error checking inventory availability:', error);
