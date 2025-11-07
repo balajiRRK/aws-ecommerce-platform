@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // API Base URL - Update this with your API Gateway URL when configured
-const INVENTORY_SERVICE_URL = process.env.REACT_APP_INVENTORY_SERVICE_URL || 'https://v1lr26ebib.execute-api.us-east-2.amazonaws.com/dev';
+const INVENTORY_SERVICE_URL = process.env.REACT_APP_INVENTORY_SERVICE_URL || 'http://localhost:3001';
 
 // Create axios instance with default config
 const inventoryAPI = axios.create({
