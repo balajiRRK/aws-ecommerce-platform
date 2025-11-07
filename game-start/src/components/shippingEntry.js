@@ -7,6 +7,9 @@ const ShippingEntry = () => {
   const prevOrder =
     location.state?.order || JSON.parse(localStorage.getItem("orderData")) || {};
 
+  // Load saved email from localStorage if it exists
+  const savedEmail = localStorage.getItem("userEmail") || "";
+  
   const [shippingInfo, setShippingInfo] = useState({
     fullName: "",
     address1: "",
@@ -14,6 +17,7 @@ const ShippingEntry = () => {
     city: "",
     state: "",
     zip: "",
+    email: savedEmail,
   });
 
   const handleChange = (e) => {
@@ -28,12 +32,15 @@ const ShippingEntry = () => {
       !shippingInfo.address1 ||
       !shippingInfo.city ||
       !shippingInfo.state ||
-      !shippingInfo.zip
+      !shippingInfo.zip ||
+      !shippingInfo.email
     ) {
       alert("Please fill in all required fields");
       return;
     }
 
+    // Save email for next time
+    localStorage.setItem("userEmail", shippingInfo.email);
     localStorage.setItem("shippingInfo", JSON.stringify(shippingInfo));
     navigate("/purchase/viewOrder", { state: { order: prevOrder } });
   };
@@ -65,6 +72,21 @@ const ShippingEntry = () => {
                       placeholder="John Doe"
                       required
                     />
+                  </div>
+
+                  <div className="mb-3">
+                    <label htmlFor="email" className="form-label">Email</label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      id="email"
+                      name="email"
+                      value={shippingInfo.email}
+                      onChange={handleChange}
+                      placeholder="john.doe@example.com"
+                      required
+                    />
+                    <div className="form-text">Order confirmation will be sent here. We'll remember this for next time!</div>
                   </div>
 
                   <div className="mb-3">

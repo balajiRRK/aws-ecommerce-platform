@@ -35,7 +35,14 @@ const ViewConfirmation = () => {
         if (response.success)
         { 
           setOrderNumber(response.orderNumber);
-          setEstimatedDelivery(new Date(response.estimatedDelivery));
+          // Backend returns YYYY-MM-DD. Append 'T00:00:00Z' to parse as UTC midnight
+          // so the displayed date matches what's stored in DB regardless of local timezone.
+          const est = response.estimatedDelivery;
+          if (est && /^\d{4}-\d{2}-\d{2}$/.test(est)) {
+            setEstimatedDelivery(new Date(est + 'T00:00:00Z'));
+          } else {
+            setEstimatedDelivery(new Date(response.estimatedDelivery));
+          }
         } else {
           const apiError = response.error || "Cannot confirm order, some items are unavailable";
           throw new Error(apiError)
@@ -53,7 +60,10 @@ const ViewConfirmation = () => {
   }, [location.state]);
 
   const handleBackToShop = () => {
-    localStorage.clear();
+    // Clear order data but keep userEmail for next time
+    localStorage.removeItem("orderData");
+    localStorage.removeItem("shippingInfo");
+    localStorage.removeItem("paymentInfo");
     navigate("/purchase");
   };
 
