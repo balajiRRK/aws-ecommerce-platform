@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { apiService, handleAPIError } from "../services/api"
 
@@ -6,6 +6,7 @@ const ViewConfirmation = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const hasPosted = useRef(false);
   const [order, setOrder] = useState({});
   const [shippingInfo, setShippingInfo] = useState({});
   const [paymentInfo, setPaymentInfo] = useState({});
@@ -14,23 +15,47 @@ const ViewConfirmation = () => {
 
   const [orderNumber, setOrderNumber] = useState("")
   const [estimatedDelivery, setEstimatedDelivery] = useState(null);
-
+  
   useEffect(() => {
-    const savedOrder =
-      location.state?.order || JSON.parse(localStorage.getItem("orderData")) || {};
-    const savedShipping =
-      JSON.parse(localStorage.getItem("shippingInfo")) || {};
-    const savedPayment =
-      JSON.parse(localStorage.getItem("paymentInfo")) || {};
-      
+    if (hasPosted.current) return; // Prevent React strict mode from running useEffect twice
+    
+    const savedOrder = location.state?.order || JSON.parse(localStorage.getItem("orderData")) || {};
+    const savedShipping = JSON.parse(localStorage.getItem("shippingInfo")) || {};
+    const savedPayment = JSON.parse(localStorage.getItem("paymentInfo")) || {};
+    
     setOrder(savedOrder);
     setShippingInfo(savedShipping);
     setPaymentInfo(savedPayment);
+    
+    if (!savedOrder.items || !savedShipping.fullName || !savedPayment.cardNumber) return;
+    hasPosted.current = true
+
+    const fullOrderPayload = {
+      ...savedOrder,  // items, buyQuantity, total
+      customerEmail: localStorage.getItem("userEmail") || "",
+      shipping_address: {
+        address_1: savedShipping.address1,
+        address_2: savedShipping.address2,
+        city: savedShipping.city,
+        state: savedShipping.state,
+        country: savedShipping.country,
+        zip: savedShipping.zip,
+      },
+      credit_card_data: {
+        card_holder_name: savedPayment.cardholderName,
+        card_number: savedPayment.cardNumber,
+        expir_date: savedPayment.expiry,
+        cvvCode: savedPayment.cvv,
+      }
+    };
+    
+    console.log("POSTING ORDER WITH: ", fullOrderPayload);
 
     const postOrder = async () => {
       try {
         setError(null);
-        const response = await apiService.processOrder(savedOrder);
+
+        const response = await apiService.processOrder(fullOrderPayload);
 
         if (response.success)
         { 
@@ -57,7 +82,7 @@ const ViewConfirmation = () => {
     };
   
     postOrder();
-  }, [location.state]);
+  }, [order, shippingInfo, paymentInfo]);
 
   const handleBackToShop = () => {
     // Clear order data but keep userEmail for next time
@@ -106,7 +131,7 @@ const ViewConfirmation = () => {
               <div>
                 <h4 className="alert-heading mb-1">Success! Your order has been placed</h4>
                 <p className="mb-0">
-                  <strong>Order Number:</strong> #{orderNumber}
+                  <strong>Order Number:</strong> {orderNumber}
                   <br />
                   <strong>Estimated Delivery:</strong> {estimatedDelivery.toLocaleDateString(
                     "en-US",
