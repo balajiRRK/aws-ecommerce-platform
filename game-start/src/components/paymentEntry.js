@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { apiService, handleAPIError } from "../api"; // Adjust path if needed
 
 const PaymentEntry = () => {
   const navigate = useNavigate();
@@ -18,23 +19,40 @@ const PaymentEntry = () => {
     setPaymentInfo({ ...paymentInfo, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (
-      !paymentInfo.cardholderName ||
-      !paymentInfo.cardNumber ||
-      !paymentInfo.expiry ||
-      !paymentInfo.cvv
-    ) {
+    const { cardholderName, cardNumber, expiry, cvv } = paymentInfo;
+
+    if (!cardholderName || !cardNumber || !expiry || !cvv) {
       alert("Please fill in all payment fields");
       return;
     }
 
-    localStorage.setItem("paymentInfo", JSON.stringify(paymentInfo));
-    navigate("/purchase/shippingEntry", { state: { order: prevOrder } });
-  };
+    try {
+      // ✅ Send payment info to backend (Lambda via API Gateway)
+      const response = await apiService.addPaymentInfo({
+        holderName: cardholderName,
+        cardNum: cardNumber,
+        expDate: expiry,
+        cvv: cvv,
+      });
 
+      console.log("Payment recorded:", response);
+
+      // Save to local storage
+      localStorage.setItem("paymentInfo", JSON.stringify(paymentInfo));
+
+      // Continue to shipping
+      navigate("/purchase/shippingEntry", { state: { order: prevOrder } });
+
+    } catch (error) {
+      const errData = handleAPIError(error);
+      alert(`Payment submission failed: ${errData.message}`);
+      console.error("Payment error:", errData);
+    }
+  };
+  
   return (
     <div className="container-fluid">
       <div className="hero-section">
