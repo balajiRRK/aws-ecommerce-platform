@@ -59,9 +59,13 @@ export const apiService = {
     }
   },
 
+  // Posts raw payment information to the payment service.
+  // NOTE: The preferred flow for the lab is for the Order Processing service
+  // to validate inventory and then call the payment service server-side.
+  // This client helper is kept for completeness (e.g., local testing).
   addPaymentInfo: async (paymentData) => {
     try {
-      const response = await paymentAPI.post('/payment', paymentData);
+      const response = await inventoryAPI.post('/payment', paymentData);
       return response.data;
     } catch (error) {
       console.error('Error submitting payment info:', error);

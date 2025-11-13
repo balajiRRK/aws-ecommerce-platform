@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { apiService, handleAPIError } from "../api"; // Adjust path if needed
 
 const PaymentEntry = () => {
   const navigate = useNavigate();
@@ -29,30 +28,19 @@ const PaymentEntry = () => {
       return;
     }
 
+    // Save payment info locally for the order flow. The Order Processing
+    // service will call the payment service server-side after inventory
+    // validation and will return a confirmation token to the frontend!
     try {
-      // ✅ Send payment info to backend (Lambda via API Gateway)
-      const response = await apiService.addPaymentInfo({
-        holderName: cardholderName,
-        cardNum: cardNumber,
-        expDate: expiry,
-        cvv: cvv,
-      });
-
-      console.log("Payment recorded:", response);
-
-      // Save to local storage
       localStorage.setItem("paymentInfo", JSON.stringify(paymentInfo));
-
       // Continue to shipping
       navigate("/purchase/shippingEntry", { state: { order: prevOrder } });
-
-    } catch (error) {
-      const errData = handleAPIError(error);
-      alert(`Payment submission failed: ${errData.message}`);
-      console.error("Payment error:", errData);
+    } catch (err) {
+      console.error('Failed to save payment info locally:', err);
+      alert('Failed to save payment information. Please try again.');
     }
   };
-  
+
   return (
     <div className="container-fluid">
       <div className="hero-section">
