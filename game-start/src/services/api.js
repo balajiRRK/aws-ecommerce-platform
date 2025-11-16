@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 // API Base URL - Update this with your API Gateway URL when configured
-const INVENTORY_SERVICE_URL = process.env.REACT_APP_INVENTORY_SERVICE_URL || 'http://localhost:3001';
+const API_SERVICE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
 // Create axios instance with default config
 const inventoryAPI = axios.create({
-  baseURL: INVENTORY_SERVICE_URL,
+  baseURL: API_SERVICE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -55,6 +55,20 @@ export const apiService = {
       return response.data;
     } catch (error) {
       console.error('Error checking inventory availability:', error);
+      throw error;
+    }
+  },
+
+  // Posts raw payment information to the payment service.
+  // NOTE: The preferred flow for the lab is for the Order Processing service
+  // to validate inventory and then call the payment service server-side.
+  // This client helper is kept for completeness (e.g., local testing).
+  addPaymentInfo: async (paymentData) => {
+    try {
+      const response = await inventoryAPI.post('/payment', paymentData);
+      return response.data;
+    } catch (error) {
+      console.error('Error submitting payment info:', error);
       throw error;
     }
   },

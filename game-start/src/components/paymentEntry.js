@@ -18,21 +18,27 @@ const PaymentEntry = () => {
     setPaymentInfo({ ...paymentInfo, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (
-      !paymentInfo.cardholderName ||
-      !paymentInfo.cardNumber ||
-      !paymentInfo.expiry ||
-      !paymentInfo.cvv
-    ) {
+    const { cardholderName, cardNumber, expiry, cvv } = paymentInfo;
+
+    if (!cardholderName || !cardNumber || !expiry || !cvv) {
       alert("Please fill in all payment fields");
       return;
     }
 
-    localStorage.setItem("paymentInfo", JSON.stringify(paymentInfo));
-    navigate("/purchase/shippingEntry", { state: { order: prevOrder } });
+    // Save payment info locally for the order flow. The Order Processing
+    // service will call the payment service server-side after inventory
+    // validation and will return a confirmation token to the frontend!
+    try {
+      localStorage.setItem("paymentInfo", JSON.stringify(paymentInfo));
+      // Continue to shipping
+      navigate("/purchase/shippingEntry", { state: { order: prevOrder } });
+    } catch (err) {
+      console.error('Failed to save payment info locally:', err);
+      alert('Failed to save payment information. Please try again.');
+    }
   };
 
   return (
