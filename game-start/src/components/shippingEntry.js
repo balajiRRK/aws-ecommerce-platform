@@ -25,6 +25,32 @@ const ShippingEntry = () => {
     setShippingInfo({ ...shippingInfo, [e.target.name]: e.target.value });
   };
 
+  const handleNameInput = (e) => {
+    const value = e.target.value.replace(/[^a-zA-Z\s]/g, "");
+    handleChange({ target: { name: e.target.name, value } });
+  };
+
+  const handleCityInput = (e) => {
+    const value = e.target.value.replace(/[^a-zA-Z\s]/g, "");
+    handleChange({ target: { name: "city", value } });
+  };
+
+  const handleStateInput = (e) => {
+    let value = e.target.value.replace(/[^a-zA-Z]/g, ""); // letters only
+    value = value.toUpperCase().slice(0, 2); // max 2 chars
+    handleChange({ target: { name: "state", value } });
+  };
+
+  const handleZipInput = (e) => {
+    const value = e.target.value.replace(/\D/g, "").slice(0, 10); // digits only
+    handleChange({ target: { name: "zip", value } });
+  };
+
+  const handleCountryInput = (e) => {
+    const value = e.target.value.replace(/[^a-zA-Z\s]/g, "");
+    handleChange({ target: { name: "country", value } });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -70,7 +96,7 @@ const ShippingEntry = () => {
                       id="fullName"
                       name="fullName"
                       value={shippingInfo.fullName}
-                      onChange={handleChange}
+                      onChange={handleNameInput}
                       placeholder="John Doe"
                       required
                     />
@@ -127,7 +153,7 @@ const ShippingEntry = () => {
                         id="city"
                         name="city"
                         value={shippingInfo.city}
-                        onChange={handleChange}
+                        onChange={handleCityInput}
                         required
                         placeholder="Columbus"
                       />
@@ -141,7 +167,7 @@ const ShippingEntry = () => {
                         id="state"
                         name="state"
                         value={shippingInfo.state}
-                        onChange={handleChange}
+                        onChange={handleStateInput}
                         required
                         placeholder="OH"
                         maxLength="2"
@@ -156,7 +182,7 @@ const ShippingEntry = () => {
                         id="zip"
                         name="zip"
                         value={shippingInfo.zip}
-                        onChange={handleChange}
+                        onChange={handleZipInput}
                         required
                         placeholder="43004"
                         maxLength="10"
@@ -171,7 +197,7 @@ const ShippingEntry = () => {
                         id="country"
                         name="country"
                         value={shippingInfo.country}
-                        onChange={handleChange}
+                        onChange={handleCountryInput}
                         required
                         placeholder="USA"
                       />
