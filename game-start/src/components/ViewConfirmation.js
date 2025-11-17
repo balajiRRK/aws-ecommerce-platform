@@ -59,10 +59,15 @@ const ViewConfirmation = () => {
       },
     };
 
-    const maskedPayload = { ...fullOrderPayload };
-
-    maskedPayload.credit_card_data.card_number = "**** **** **** ****";
-    maskedPayload.credit_card_data.cvvCode = "***";
+    // 🔧 Create a masked COPY for logging only (deep copy credit_card_data)
+    const maskedPayload = {
+      ...fullOrderPayload,
+      credit_card_data: {
+        ...fullOrderPayload.credit_card_data,
+        card_number: "**** **** **** ****",
+        cvvCode: "***",
+      },
+    };
 
     console.log("POSTING ORDER WITH: ", maskedPayload);
 
@@ -70,6 +75,7 @@ const ViewConfirmation = () => {
       try {
         setError(null);
 
+        // Send the REAL, unmasked payload to the backend
         const response = await apiService.processOrder(fullOrderPayload);
 
         if (response.success) {
@@ -101,7 +107,7 @@ const ViewConfirmation = () => {
     };
 
     postOrder();
-  }, [order, shippingInfo, paymentInfo]);
+  }, [order, shippingInfo, paymentInfo, location.state]);
 
   const handleBackToShop = () => {
     // Clear order data but keep userEmail for next time
