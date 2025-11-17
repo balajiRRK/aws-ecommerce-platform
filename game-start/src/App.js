@@ -29,7 +29,7 @@ function App() {
                 <nav className="navbar navbar-expand-lg navbar-dark" style={{background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'}}>
                   <div className="container-fluid">
                     <Link className="navbar-brand fw-bold" to="/home">
-                      🏪 GameHub Store
+                      🏪 GameStart Store
                     </Link>
                   
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

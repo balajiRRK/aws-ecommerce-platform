@@ -20,8 +20,8 @@ const ContactUs = () => {
                 <div className="card-body text-center">
                   <h5 className="card-title">📞 Customer Support</h5>
                   <div className="contact-details">
-                    <p><strong>Phone:</strong> 1-800-GAMEHUB (1-800-426-3482)</p>
-                    <p><strong>Email:</strong> support@gamehub.com</p>
+                    <p><strong>Phone:</strong> 1-800-GAMESTART (1-800-426-3482)</p>
+                    <p><strong>Email:</strong> support@gamestart.com</p>
                     <p><strong>Hours:</strong> 24/7 Support Available</p>
                     <p><strong>Response Time:</strong> Within 2 hours</p>
                   </div>
@@ -35,7 +35,7 @@ const ContactUs = () => {
                   <h5 className="card-title">🔧 Technical Support</h5>
                   <div className="contact-details">
                     <p><strong>Phone:</strong> 1-800-TECH-HUB (1-800-832-4482)</p>
-                    <p><strong>Email:</strong> tech@gamehub.com</p>
+                    <p><strong>Email:</strong> tech@gamestart.com</p>
                     <p><strong>Hours:</strong> Mon-Fri 8AM-8PM EST</p>
                     <p><strong>Live Chat:</strong> Available on website</p>
                   </div>
@@ -49,7 +49,7 @@ const ContactUs = () => {
                   <h5 className="card-title">💳 Billing & Refunds</h5>
                   <div className="contact-details">
                     <p><strong>Phone:</strong> 1-800-BILLING (1-800-245-5464)</p>
-                    <p><strong>Email:</strong> billing@gamehub.com</p>
+                    <p><strong>Email:</strong> billing@gamestart.com</p>
                     <p><strong>Hours:</strong> Mon-Fri 9AM-6PM EST</p>
                     <p><strong>Account Portal:</strong> <a href="#account">My Account</a></p>
                   </div>
@@ -108,7 +108,7 @@ const ContactUs = () => {
 
           <div className="faq-item">
             <h3>What if I lose my product key?</h3>
-            <p>No worries! All your keys are stored in your account library. You can access them anytime by logging into your GameHub account.</p>
+            <p>No worries! All your keys are stored in your account library. You can access them anytime by logging into your GameStart account.</p>
           </div>
 
           <div className="faq-item">
