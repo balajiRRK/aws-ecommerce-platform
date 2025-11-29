@@ -25,7 +25,7 @@ function Home() {
               textShadow: '0 4px 12px rgba(0,0,0,0.2)',
             }}
           >
-            Welcome to <span style={{ color: '#e0d1ff' }}>GameHub</span>
+            Welcome to <span style={{ color: '#e0d1ff' }}>GameStart</span>
           </h1>
           <p
             className="lead mb-4"

@@ -4,7 +4,7 @@ const AboutUs = () => {
   return (
     <div className="container-fluid">
       <div className="hero-section">
-        <h1>About GameHub</h1>
+        <h1>About GameStart</h1>
         <p>Your Premier Destination for Digital Gaming Excellence</p>
       </div>
 
@@ -120,7 +120,7 @@ const AboutUs = () => {
                 </p>
                 <p><strong>Technical Mastery:</strong> Full-stack development expertise in MATLAB, C/C++, Python, HTML, JavaScript; Advanced proficiency in SolidWorks, Arduino, circuit design; Database management with SQL; Cloud technologies and system architecture.</p>
                 <p><strong>Leadership & Community:</strong> Active member of Students Supporting Israel (SSI), Jewish Runners Club, Soccer Indoor Club, and former Buckeye Solar Racing Club engineer. Youngest server at Cleveland's highest-grossing Italian restaurant, consistently generating $2,000+ in nightly sales.</p>
-                <p><strong>Vision:</strong> Combining cutting-edge technology expertise with deep medical knowledge to create the most innovative, user-centric gaming marketplace in the world. Leveraging emergency medical training to build systems that perform flawlessly under pressure, and research experience to drive data-driven decision making that keeps GameHub at the forefront of the digital gaming revolution.</p>
+                <p><strong>Vision:</strong> Combining cutting-edge technology expertise with deep medical knowledge to create the most innovative, user-centric gaming marketplace in the world. Leveraging emergency medical training to build systems that perform flawlessly under pressure, and research experience to drive data-driven decision making that keeps GameStart at the forefront of the digital gaming revolution.</p>
                 <p><strong>Languages:</strong> Bilingual- Fluent in English and Hebrew</p>
               </div>
             </div>
@@ -181,7 +181,7 @@ const AboutUs = () => {
         <div className="investors-section">
           <h2>Investment Opportunity</h2>
           <p>
-            GameHub represents a unique opportunity to invest in the rapidly growing digital gaming market. 
+            GameStart represents a unique opportunity to invest in the rapidly growing digital gaming market. 
             With our experienced leadership team, proven technology platform, and strategic market position, 
             we are poised for significant growth and market expansion.
           </p>

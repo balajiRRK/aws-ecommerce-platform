@@ -18,21 +18,60 @@ const PaymentEntry = () => {
     setPaymentInfo({ ...paymentInfo, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleCardNumberInput = (e) => {
+    let value = e.target.value.replace(/\D/g, ""); // digits only
+    value = value.slice(0, 16); // max 16 digits
+    // format as XXXX XXXX XXXX XXXX
+    value = value.replace(/(.{4})/g, "$1 ").trim();
+    handleChange({ target: { name: "cardNumber", value } });
+  };
+
+  const handleCardholderNameInput = (e) => {
+    let value = e.target.value.replace(/[^a-zA-Z\s]/g, ""); // only letters + spaces
+    handleChange({ target: { name: "cardholderName", value } });
+  };
+
+  const handleExpiryInput = (e) => {
+    let value = e.target.value.replace(/\D/g, ""); // digits only
+    if (value.length > 4) value = value.slice(0, 4);
+
+    if (value.length >= 3) {
+      const month = Math.min(parseInt(value.slice(0, 2), 10), 12)
+        .toString()
+        .padStart(2, "0");
+      const year = value.slice(2, 4);
+      value = `${month}/${year}`;
+    }
+
+    handleChange({ target: { name: "expiry", value } });
+  };
+
+  const handleCVVInput = (e) => {
+    const value = e.target.value.replace(/\D/g, "").slice(0, 4); // 3–4 digits
+    handleChange({ target: { name: "cvv", value } });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (
-      !paymentInfo.cardholderName ||
-      !paymentInfo.cardNumber ||
-      !paymentInfo.expiry ||
-      !paymentInfo.cvv
-    ) {
+    const { cardholderName, cardNumber, expiry, cvv } = paymentInfo;
+
+    if (!cardholderName || !cardNumber || !expiry || !cvv) {
       alert("Please fill in all payment fields");
       return;
     }
 
-    localStorage.setItem("paymentInfo", JSON.stringify(paymentInfo));
-    navigate("/purchase/shippingEntry", { state: { order: prevOrder } });
+    // Save payment info locally for the order flow. The Order Processing
+    // service will call the payment service server-side after inventory
+    // validation and will return a confirmation token to the frontend!
+    try {
+      localStorage.setItem("paymentInfo", JSON.stringify(paymentInfo));
+      // Continue to shipping
+      navigate("/purchase/shippingEntry", { state: { order: prevOrder } });
+    } catch (err) {
+      console.error('Failed to save payment info locally:', err);
+      alert('Failed to save payment information. Please try again.');
+    }
   };
 
   return (
@@ -58,7 +97,7 @@ const PaymentEntry = () => {
                       id="cardholderName"
                       name="cardholderName"
                       value={paymentInfo.cardholderName}
-                      onChange={handleChange}
+                      onChange={handleCardholderNameInput}
                       placeholder="John Doe"
                       required
                     />
@@ -72,7 +111,7 @@ const PaymentEntry = () => {
                       id="cardNumber"
                       name="cardNumber"
                       value={paymentInfo.cardNumber}
-                      onChange={handleChange}
+                      onChange={handleCardNumberInput}
                       placeholder="1111 2222 3333 4444"
                       maxLength="19"
                       required
@@ -88,7 +127,7 @@ const PaymentEntry = () => {
                         id="expiry"
                         name="expiry"
                         value={paymentInfo.expiry}
-                        onChange={handleChange}
+                        onChange={handleExpiryInput}
                         placeholder="MM/YY"
                         maxLength="5"
                         required
@@ -103,7 +142,7 @@ const PaymentEntry = () => {
                         id="cvv"
                         name="cvv"
                         value={paymentInfo.cvv}
-                        onChange={handleChange}
+                        onChange={handleCVVInput}
                         placeholder="123"
                         maxLength="4"
                         required
