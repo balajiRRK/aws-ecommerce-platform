@@ -146,7 +146,7 @@ const AboutUs = () => {
 
             <div className="team-member">
               <div className="member-photo">
-                <img src="https://media.licdn.com/dms/image/v2/D4D03AQElt8sE4Hy5pQ/profile-displayphoto-scale_200_200/B4DZmPHgq0GwAY-/0/1759042735627?e=2147483647&v=beta&t=muPcTL-kolkAgRc2ZYdXnDgO0hqgnoywSXadJ5CiNt4" alt="CFO" />
+                <img src="https://i.imgur.com/Z46eTCl.png" alt="CFO" />
               </div>
               <div className="member-info">
                 <h3>Kaivalya Pitale</h3>
